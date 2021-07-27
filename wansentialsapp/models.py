@@ -12,4 +12,11 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} profile'
 
+class Product(models.Model):
+    name = models.CharField(max_length=80, blank=True)
+    picture = models.ImageField(upload_to='images/', default='default.png')
+    description = models.TextField()
+    price = models.CharField(max_length = 10,blank =True)
 
+    def __str__(self):
+                return f'{self.name}'
