@@ -37,6 +37,11 @@ def loginPage(request):
     context = {}
     return render(request, 'accounts/login.html', context)
 
+def logoutpage(request):
+    logout(request)
+    return redirect('loginpage')
+
+
 def profile(request):
     try:
         profile = request.user.profile
