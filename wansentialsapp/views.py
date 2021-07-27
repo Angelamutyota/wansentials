@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from .models import Profile
 
 
 # Create your views here.
@@ -32,3 +33,11 @@ def profile(request):
         if prof_form.is_valid():
             prof_form.save()
             return redirect(request.path_info)
+    else:
+        prof_form = ProfileForm(instance=request.user.profile)
+    profiles = Profile.objects.filter(user=user)
+    context = {
+        'profiles': profiles,
+        'prof_form': prof_form,
+    }
+    return render(request, 'profile.html', context)
