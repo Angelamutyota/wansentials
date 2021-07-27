@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm
+from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
@@ -20,3 +20,15 @@ def registerPage(request):
         messages.success(request, 'Account was created for' , name)
     context = {'form':form, 'profile':profile}
     return render(request, 'accounts/register.html', context)
+
+def profile(request):
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
+    user = request.user
+    if request.method == 'POST':
+        prof_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if prof_form.is_valid():
+            prof_form.save()
+            return redirect(request.path_info)
