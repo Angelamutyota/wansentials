@@ -10,6 +10,8 @@ urlpatterns = [
         path('logout/',views.logoutpage,name='logout'),
 
         path('',views.index, name = 'index'),
+        path('profile/', views.profile, name= 'profile'),
+        path('updateprofile/', views.update_profile, name= 'updateprofile'),
 
 ]
 if settings.DEBUG:

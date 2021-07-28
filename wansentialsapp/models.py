@@ -16,11 +16,24 @@ class Product(models.Model):
     name = models.CharField(max_length=80, blank=True)
     picture = models.ImageField(upload_to='images/', default='default.png')
     description = models.TextField()
-    price = models.CharField(max_length = 10,blank =True)
+    price = models.FloatField()
 
     def __str__(self):
-                return f'{self.name}'
+        return f'{self.name}'
+
+class Orderedproduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Order(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='person')
-    
+    products = models.ManyToManyField(Orderedproduct)
+    start_date = models.DateTimeField(auto_now_add=True)
+    ordered_date = models.DateTimeField()
+    ordered = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.user.username}'

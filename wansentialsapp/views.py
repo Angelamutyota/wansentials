@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Profile
+from .models import Product, Profile
 
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html',)
+    products = Product.objects.all
+    context = {
+        'products':products   
+    }
+    return render(request, 'index.html', context)
 
 def registerPage(request):
     form = CreateUserForm()
@@ -61,3 +65,21 @@ def profile(request):
         'prof_form': prof_form,
     }
     return render(request, 'profile.html', context)
+
+def update_profile(request):
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
+    if request.method == 'POST':
+            prof_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+            if prof_form.is_valid():
+                prof_form.save()
+                return redirect('profile')
+    else:
+        prof_form = ProfileForm(instance=request.user.profile)
+        context = {
+            'prof_form': prof_form,
+        }
+    return render(request, 'updateprofile.html', context)
+
