@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'bootstrap5',
     'wansentialsapp',
     'crispy_forms',
-    'bootstrap4'
 ]
 
 MIDDLEWARE = [

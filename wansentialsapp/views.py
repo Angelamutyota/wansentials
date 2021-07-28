@@ -83,3 +83,15 @@ def update_profile(request):
         }
     return render(request, 'updateprofile.html', context)
 
+def search_results(request):
+
+    if 'product' in request.GET and request.GET["product"]:
+        search_term = request.GET.get("product")
+        searched_products = Product.search_by_name(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"products": searched_products})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})

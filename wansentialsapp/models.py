@@ -18,6 +18,11 @@ class Product(models.Model):
     description = models.TextField()
     price = models.FloatField()
 
+    @classmethod
+    def search_by_name(cls,search_term):
+        product = cls.objects.filter(name__icontains=search_term)
+        return product
+
     def __str__(self):
         return f'{self.name}'
 
