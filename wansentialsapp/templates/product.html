@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+{% block content %}
+
+<div class="container">
+     <div class="row">
+     <div class="col-md-4">
+        <div class="card mb-4" style="width: 700px;">
+            <img src="{{product.picture.url}}" class="card-img-top" alt="Image" width="800px" height="400px">
+            <div class="card-body">
+            <p class="card-title">{{product}}</p>
+            <p class="card-text"> {{product.description}}</p>
+            <p class="card-text price">ksh. {{product.price}}</p>
+           </div>
+          </div>
+     </div>
+     </div>
+</div>
+
+{%endblock%}

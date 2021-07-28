@@ -3,6 +3,8 @@ from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import Product, Profile
+from django.core.exceptions import ObjectDoesNotExist
+from django.http.response import Http404
 
 
 # Create your views here.
@@ -95,3 +97,11 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+        
+def product(request, id):
+    try:
+        product = Product.objects.get(id =id)
+    except ObjectDoesNotExist:
+        raise Http404()
+
+    return render(request, "product.html", {"product":product})

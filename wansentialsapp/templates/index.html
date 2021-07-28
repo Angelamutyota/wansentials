@@ -8,10 +8,12 @@
    {% for product in products%}
    <div class="col-md-4">
     <div class="card mb-4">
-   <img src="{{product.picture.url}}" class="card-img-top" alt="Image" width="250px" height="250px">
+   <a href="{%url 'product' product.id%}"><img src="{{product.picture.url}}" class="card-img-top" alt="Image" width="250px" height="250px"></a>
    <div class="card-body">
    <p class="card-title">{{product}}</p>
    <p class="card-text">ksh. {{product.price}}</p>
+
+   <a class="btn btn-success"> Add to Cart</a>
   </div>
  </div>
 </div>
