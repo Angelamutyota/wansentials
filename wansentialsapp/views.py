@@ -107,4 +107,14 @@ def product(request, id):
     return render(request, "product.html", {"product":product})
 
 def checkout(request):
+
+    if request.method == "POST":
+        name = request.POST.get('name', "")
+        email = request.POST.get('email', "")
+        address = request.POST.get('address', "")
+        city = request.POST.get('city', "")
+        state = request.POST.get('state', "")
+        zipcode = request.POST.get('zipcode', "")
+
+        
     return render(request, 'checkout.html')
