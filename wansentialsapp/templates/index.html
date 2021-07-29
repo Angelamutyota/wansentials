@@ -20,6 +20,13 @@
    {% endfor %}
 </div>
 </body>
+<script type="text/javascript">
+   console.log('this works');
+
+   if (localStorage.getItem('cart')==null){
+      var cart = {};
+   }
+</script>
 
 {% endblock %}
 
