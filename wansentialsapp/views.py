@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Product, Profile
+from .models import Order, Product, Profile
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
 
@@ -109,6 +109,7 @@ def product(request, id):
 def checkout(request):
 
     if request.method == "POST":
+        items = request.POST.get('items', "")
         name = request.POST.get('name', "")
         email = request.POST.get('email', "")
         address = request.POST.get('address', "")
@@ -116,5 +117,7 @@ def checkout(request):
         state = request.POST.get('state', "")
         zipcode = request.POST.get('zipcode', "")
 
-        
+        order = Order (name=name, email=email, address=address, city=city, state=state, zipcode= zipcode, items=items)
+        order.save()
+
     return render(request, 'checkout.html')

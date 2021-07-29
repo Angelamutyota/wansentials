@@ -17,12 +17,11 @@
    <div class="row">
    {% for product in products%}
    <div class="col-md-4">
-    <div class="card mb-4">
+    <div class="card mb-4" >
    <a href="{%url 'product' product.id%}"><img src="{{product.picture.url}}" class="card-img-top" alt="Image" width="250px" height="250px"></a>
    <div class="card-body">
    <p id="nm{{product.id}}" class="card-title">{{product.name}}</p>
-   <p class="card-text">ksh. {{product.price}}</p>
-
+   <p id="price{{product.id}}" class="card-text price"> {{product.price}}</p>
    <button id="{{product.id}}" class="btn atc btn-success"> Add to Cart</button>
   </div>
  </div>
@@ -48,13 +47,14 @@
       if(cart[item_id]!=undefined){
          quantity = cart[item_id][0] +1; 
          cart[item_id][0] = quantity;
+         cart[item_id][2] =cart[item_id][2] + parseFloat(document.getElementById("price" + item_id).innerHTML);
+
       }
       else{
          quantity = 1;
+         price = parseFloat(document.getElementById("price" + item_id).innerHTML)
          name = document.getElementById("nm"+item_id).innerHTML;
-         cart[item_id]= [quantity, name];
-
-
+         cart[item_id]= [quantity, name, price];
       }
       console.log(cart);
       localStorage.setItem('cart',JSON.stringify(cart));

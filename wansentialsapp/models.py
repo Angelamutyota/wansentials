@@ -17,6 +17,9 @@ class Product(models.Model):
     picture = models.ImageField(upload_to='images/', default='default.png')
     description = models.TextField()
     price = models.FloatField()
+    discount_price = models.FloatField()
+    category = models.CharField(max_length=200)
+
 
     @classmethod
     def search_by_name(cls,search_term):
@@ -34,11 +37,12 @@ class Orderedproduct(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='person')
-    products = models.ManyToManyField(Orderedproduct)
-    start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
-    ordered = models.BooleanField(default=False)
+    items = models.CharField(max_length=1000)
+    name = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
+    state = models.CharField(max_length=200)
+    zipcode = models.CharField(max_length=200)
 
-    def __str__(self):
-        return f'{self.user.username}'
+   

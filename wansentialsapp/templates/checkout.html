@@ -21,7 +21,9 @@
         <div class="row">
             <div class="col-md-12">
                 <form method="POST" style="margin-top: 30px;">
-                    <div class="form-row">
+                  {% csrf_token%}
+                  <input type="hidden" id="items" name="items">
+                  <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">name</label>
                         <input id="name" name="name" type="text" class="form-control" id="inputEmail4" placeholder="Jane">
@@ -66,10 +68,12 @@ else {
 for (item in cart){
     let name = cart[item][1];
     let quantity = cart[item][0];
+    let price = cart[item][2];
 
-    itemString = `<li class= "list-group-item">${name}-${quantity}</li>`
+    itemString = ` <li class= "list-group-item"><span class = "">${quantity}</span> of ${name}<span class = "badge badge-warning badge-pill">${price}</span></li>`
     $('#item_list').append(itemString);
 }
+$('#items').val(JSON.stringify(cart));
 </script>
 
 {%endblock%}
