@@ -11,15 +11,17 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </head>
-<body>
-    <div class="container">
-   <h2>Here is a list of our Products</h2> 
+<body style="background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-creamy-white-silk-simple-background-image_17611.jpg); background-repeat: no-repeat; background-size: 100% 100%;">
+    <div class="container-fluid">
+       <div class="jumbotron" style="background-image: url(https://i.pinimg.com/originals/4c/da/1f/4cda1f24028df28b533877b8f29fbcca.jpg); background-size: 100%;">
+         <h2 class="text-center">Here is a list of our Products</h2> 
+       </div>
    <div class="row">
    {% for product in products%}
-   <div class="col-md-4">
+   <div class="col-md-3">
     <div class="card mb-4" >
    <a href="{%url 'product' product.id%}"><img src="{{product.picture.url}}" class="card-img-top" alt="Image" width="250px" height="250px"></a>
-   <div class="card-body">
+   <div class="card-body bg-light">
    <p id="nm{{product.id}}" class="card-title">{{product.name}}</p>
    <p id="price{{product.id}}" class="card-text price"> {{product.price}}</p>
    <button id="{{product.id}}" class="btn atc btn-success"> Add to Cart</button>

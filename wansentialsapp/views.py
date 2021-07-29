@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Order, Product, Profile
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -47,7 +48,7 @@ def logoutpage(request):
     logout(request)
     return redirect('loginpage')
 
-
+@login_required(login_url='loginpage')
 def profile(request):
     try:
         profile = request.user.profile
@@ -68,6 +69,7 @@ def profile(request):
     }
     return render(request, 'profile.html', context)
 
+@login_required(login_url='loginpage')
 def update_profile(request):
     try:
         profile = request.user.profile
@@ -85,6 +87,7 @@ def update_profile(request):
         }
     return render(request, 'updateprofile.html', context)
 
+@login_required(login_url='loginpage')
 def search_results(request):
 
     if 'product' in request.GET and request.GET["product"]:
@@ -97,7 +100,8 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
-        
+
+@login_required(login_url='loginpage')       
 def product(request, id):
     try:
         product = Product.objects.get(id =id)
@@ -106,6 +110,7 @@ def product(request, id):
 
     return render(request, "product.html", {"product":product})
 
+@login_required(login_url='loginpage')
 def checkout(request):
 
     if request.method == "POST":

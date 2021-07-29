@@ -8,7 +8,7 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-creamy-white-silk-simple-background-image_17611.jpg); background-repeat: no-repeat; background-size:2500px;">
     <div class="container">
         <div class="row">
         <div class="col-md-12">
@@ -61,6 +61,7 @@
             </div>
         </div>
     </div>
+  </div>
 </body>
 <script type="text/javascript">
 if (localStorage.getItem('cart')== null){
@@ -77,7 +78,7 @@ for (item in cart){
     let price = cart[item][2];
     total = total + cart[item][2];
 
-    itemString = ` <li class= "list-group-item"><span class = "">${quantity}</span> of ${name} <span class = "badge badge-warning badge-pill">${price}</span></li>`
+    itemString = ` <li class= "list-group-item"><span class = "">${quantity}</span> of ${name} <span class = "badge badge-secondary badge-pill">${price}</span></li>`
 
     $('#item_list').append(itemString);
 
