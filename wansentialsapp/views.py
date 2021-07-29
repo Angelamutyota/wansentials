@@ -105,3 +105,6 @@ def product(request, id):
         raise Http404()
 
     return render(request, "product.html", {"product":product})
+
+def checkout(request):
+    return render(request, 'checkout.html')

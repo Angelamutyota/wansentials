@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Wansentials</a>
@@ -7,9 +8,6 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="">link</a>  
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="">link</a>
           </li>
           <li class="nav-item dropdown">
@@ -17,16 +15,21 @@
                 My Profile
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'profile' %}">{{request.user }}</a></li>
+              <li><a  class="dropdown-item" href="{% url 'profile' %}">{{request.user }}</a></li>
               <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
             </ul>
           </li>
-  
-        </ul>
-        <form class="d-flex" role="search" action="{% url 'search_results' %}">
+          <li class="nav-item">
+            <button data-html="true" id="cart" type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamussagittis lacus vel augue laoreet rutrum faucibus.">
+            cart(0)
+           </button>      
+          </li>
+        </ul> 
+        <form class="d-flex nav-right" role="search" action="{% url 'search_results' %}">
           <input class="form-control me-2" type="search" placeholder="Search product" aria-label="Search" name="product">
           <button class="btn btn-outline-success"  type="submit">Search</button>
         </form>
       </div>
     </div>
+    
   </nav>

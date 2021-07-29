@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {%load static%}
 {%block content%}
+<head>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">   
+   <script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
 <body>
     <div class="container">
    <h2>Here is a list of our Products</h2> 
@@ -10,10 +20,10 @@
     <div class="card mb-4">
    <a href="{%url 'product' product.id%}"><img src="{{product.picture.url}}" class="card-img-top" alt="Image" width="250px" height="250px"></a>
    <div class="card-body">
-   <p class="card-title">{{product}}</p>
+   <p id="nm{{product.id}}" class="card-title">{{product.name}}</p>
    <p class="card-text">ksh. {{product.price}}</p>
 
-   <a class="btn btn-success"> Add to Cart</a>
+   <button id="{{product.id}}" class="btn atc btn-success"> Add to Cart</button>
   </div>
  </div>
 </div>
@@ -26,7 +36,43 @@
    if (localStorage.getItem('cart')==null){
       var cart = {};
    }
-</script>
+   else {
+      cart = JSON.parse(localStorage.getItem('cart'));
+   }
 
+   $(document).on('click', '.atc', function(){
+      console.log("added to cart");
+      var item_id = this.id.toString();
+      console.log(item_id);
+
+      if(cart[item_id]!=undefined){
+         cart[item_id] = cart[item_id] + 1;
+      }
+
+      else{
+         cart[item_id] = 1;
+      }
+      console.log(cart);
+      localStorage.setItem('cart',JSON.stringify(cart));
+      document.getElementById("cart").innerHTML = "cart(" + Object.keys(cart).length + ")";
+   });
+
+  displayCart(cart);
+  function displayCart(cart){
+     var cartString = "";
+     cartString += "<h5>This is your cart</h5>";
+     var cartIndex = 1;
+     for(var x in cart){
+       cartIndex += cartIndex;
+       cartString += document.getElementById("nm"+x).innerHTML + "" + ":" +cart[x] + "</br>";
+       cartIndex += 1;
+     }
+
+     cartString += "<a href= '/checkout'><button class= 'btn btn-success' id = 'checkout'> checkout</button></a>";
+     document.getElementById("cart").setAttribute('data-content', cartString);
+     $('[data-toggle="popover"]').popover();
+   }
+</script>
+ 
 {% endblock %}
 
